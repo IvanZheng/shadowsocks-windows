@@ -14,6 +14,22 @@ Shadowsocks for Windows
 5. Supports server auto switching
 6. Supports UDP relay (see Usage)
 7. Supports plugins
+8. Supports auto capturing proxy servers from https://fast.ishadowx.net/, config the appsettings.json as below:
+
+{
+  "enableCapture": "true", // enable auto capture proxy server from source url
+  "captureinterval": 15,  // auto capture interval, default: 15 mins
+  "sources": [
+    {
+      "url": "https://fast.ishadowx.net/", // source url
+      "selector": "//div[contains(@class, 'us')]",
+      "ipSelector": ".//span[contains(@id, 'ipus')]",
+      "portSelector": ".//span[contains(@id, 'portus')]",
+      "pwdSelector": ".//span[contains(@id, 'pwus')]",
+      "methodSelector": ".//div[@class='hover-text']/h4[contains(text(), 'Method:')]"
+    }
+  ]
+}
 
 #### Download
 
