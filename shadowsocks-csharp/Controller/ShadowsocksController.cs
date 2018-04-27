@@ -106,8 +106,11 @@ namespace Shadowsocks.Controller
         private readonly Capturer _capturer = new Capturer();
         protected void CaptureProxies()
         {
-            _capturer.RefreshConfiguration(_config);
-            Configuration.Save(_config);
+            if (ConfigurationManager.Get<bool>("enableCapture"))
+            {
+                _capturer.RefreshConfiguration(_config);
+                Configuration.Save(_config);
+            }
             Reload();
         }
 

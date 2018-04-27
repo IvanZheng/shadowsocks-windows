@@ -7,6 +7,7 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Shadowsocks.Controller.Strategy;
 using Shadowsocks.Model;
 
 namespace Shadowsocks.Util.Capturers
@@ -64,6 +65,7 @@ namespace Shadowsocks.Util.Capturers
                 var servers = ParseFromSource(sources);
                 configuration.configs.Clear();
                 configuration.configs.AddRange(servers);
+                configuration.strategy = HighAvailabilityStrategy.HighAvailabilityStrategyId;
                 File.AppendAllText(logPath, $"{DateTime.Now:yyyy MMMM dd HH:mm:ss} Update Successful {Environment.NewLine}");
             }
             catch (Exception e)

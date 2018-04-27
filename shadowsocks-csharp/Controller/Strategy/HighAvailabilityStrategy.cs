@@ -44,10 +44,10 @@ namespace Shadowsocks.Controller.Strategy
         {
             get { return I18N.GetString("High Availability"); }
         }
-
+        public const string HighAvailabilityStrategyId = "com.shadowsocks.strategy.ha";
         public string ID
         {
-            get { return "com.shadowsocks.strategy.ha"; }
+            get { return HighAvailabilityStrategyId; }
         }
 
         public void ReloadServers()

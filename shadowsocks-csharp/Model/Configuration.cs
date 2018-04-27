@@ -4,6 +4,7 @@ using System.IO;
 
 using Shadowsocks.Controller;
 using Newtonsoft.Json;
+using Shadowsocks.Controller.Strategy;
 
 namespace Shadowsocks.Model
 {
