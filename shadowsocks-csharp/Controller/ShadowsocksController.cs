@@ -17,6 +17,7 @@ using Shadowsocks.Util;
 using System.Linq;
 using Shadowsocks.Controller.Service;
 using Shadowsocks.Proxy;
+using Shadowsocks.Util.Capturers;
 
 namespace Shadowsocks.Controller
 {
@@ -88,9 +89,25 @@ namespace Shadowsocks.Controller
             StartReleasingMemory();
             StartTrafficStatistics(61);
         }
-
+        private readonly System.Windows.Forms.Timer _timer = new System.Windows.Forms.Timer();
         public void Start()
         {
+            CaptureProxies();
+            _timer.Interval = ConfigurationManager.Get<int>("captureinterval") * 1000 * 60;
+            _timer.Tick += _timer_Tick;
+            _timer.Start();
+        }
+
+        private void _timer_Tick(object sender, EventArgs e)
+        {
+            CaptureProxies();
+        }
+
+        private readonly Capturer _capturer = new Capturer();
+        protected void CaptureProxies()
+        {
+            _capturer.RefreshConfiguration(_config);
+            Configuration.Save(_config);
             Reload();
         }
 
@@ -276,6 +293,7 @@ namespace Shadowsocks.Controller
                 return;
             }
             stopped = true;
+            _timer.Stop();
             if (_listener != null)
             {
                 _listener.Stop();
